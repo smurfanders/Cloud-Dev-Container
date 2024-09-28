@@ -1,0 +1,32 @@
+services:
+  frontend-service:
+    container_name: frontend-service
+    image: smurfanders/frontend-service:0.6
+    #build: ./frontend-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - todo-service
+
+  todo-service:
+    container_name: todo-service
+    image: smurfanders/todo-service:0.5
+    #build: ./todo-service
+    ports:
+      - "5002:5002"
+    volumes:
+      - todo_data:/app/data
+
+  user-service:
+    container_name: user-service
+    image: smurfanders/user-service:0.5
+    #build: ./user-service
+    ports:
+      - "5001:5001"
+    volumes:
+      - user_data:/app/data
+
+volumes:
+  todo_data:
+  user_data:
